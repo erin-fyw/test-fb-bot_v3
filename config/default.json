@@ -1,6 +1,6 @@
 {
-    "appSecret": "",
-    "pageAccessToken": "",
-    "validationToken": "",
-    "serverURL": ""
+    "appSecret": "8603383194ac7c013281b6bfa12a18f7",
+    "pageAccessToken": "EAASS1BZBen2kBADj82hoCBvG4iH03KZBb6mEbNhB8ECly5Xzp2KWTh60i4hWa1s82XGKJclhnEeK9YeFcjZAizouV01zLmNQOwpf4Wr1yC5jqSpOLN8K7iNIaPZBs5CrhDZCURtZBMsSmogcdwZBZAZCN45cnimLjCW5UR9wnCXx1hkwJBCVeP1e7ZAEP1LeyQFAK3nJzcjrnXZAQZDZD",
+    "validationToken": "erin-fb-bot-20170428",
+    "serverURL": "https://erin-testfb-bot.herokuapp.com/"
 }

@@ -359,8 +359,13 @@ function receivedPostback(event) {
   // button for Structured Messages. 
   var payload = event.postback.payload;
   
-  if (payload == 'USER_DEFINED_PAYLOAD'){
-    response_text = 'Hi'+event.sender.name+'，我係UNews\u270b';
+  var regex = new RegExp(/(.*?),(.*?)/);
+  match = regex.exec(payload);
+  var response_type = match[1];
+  var username = match[2];
+  
+  if (response_type == 'USER_DEFINED_PAYLOAD'){
+    response_text = 'Hi'+username+'，我係UNews\u270b';
   }
 
   console.log("Received postback for user %d and page %d with payload '%s' " + 

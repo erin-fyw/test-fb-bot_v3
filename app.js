@@ -360,7 +360,7 @@ function receivedPostback(event) {
   var payload = event.postback.payload;
   
   if (payload == 'USER_DEFINED_PAYLOAD'){
-    response_text = 'Hi，我係UNews';
+    response_text = 'Hi'+event.sender.name+'，我係UNews\u270b';
   }
 
   console.log("Received postback for user %d and page %d with payload '%s' " + 

@@ -358,14 +358,9 @@ function receivedPostback(event) {
   // The 'payload' param is a developer-defined field which is set in a postback 
   // button for Structured Messages. 
   var payload = event.postback.payload;
-  
-  var regex = new RegExp(/(.*?),(.*?)/);
-  match = regex.exec(payload);
-  var response_type = match[1];
-  var username = match[2];
-  
-  if (response_type == 'USER_DEFINED_PAYLOAD'){
-    response_text = 'Hi'+username+'，我係UNews\u270b';
+    
+  if (payload == 'USER_DEFINED_PAYLOAD'){
+    response_text = 'Hi，我係UNews\u270b';
   }
 
   console.log("Received postback for user %d and page %d with payload '%s' " + 

@@ -360,7 +360,7 @@ function receivedPostback(event) {
   var payload = event.postback.payload;
     
   if (payload == 'USER_DEFINED_PAYLOAD'){
-    response_text = 'Hi，我係UNews\u270b';
+    response_text = 'Hi，我係UNews\u270b\n我可以幫你留意指定主題嘅資訊同新聞，有新消息嗰陣就會通知你。';
   }
 
   console.log("Received postback for user %d and page %d with payload '%s' " + 

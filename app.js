@@ -244,8 +244,16 @@ function receivedMessage(event) {
     var quickReplyPayload = quickReply.payload;
     console.log("Quick reply for message %s with payload %s",
       messageId, quickReplyPayload);
+    
+    if (quickReplyPayload == 'PAYLOAD_FOR_NEED_TUTORIAL'){
+      sendTextMessage(senderID,"好簡單，輸入關鍵字就可以訂閱指定新聞。")
+    }
 
-    sendTextMessage(senderID, "Quick reply tapped");
+    if (quickReplyPayload == 'PAYLOAD_FOR_NO_TUTORIAL'){
+      sendQuickReply(senderID);
+    }
+
+    //sendTextMessage(senderID, "Quick reply tapped");
     return;
   }
 
@@ -707,18 +715,23 @@ function sendQuickReply(recipientId) {
       quick_replies: [
         {
           "content_type":"text",
-          "title":"Action",
-          "payload":"DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_ACTION"
+          "title":"熱門關鍵字",
+          "payload":"PAYLOAD_FOR_HOT_SEARCH_KEY"
         },
         {
           "content_type":"text",
-          "title":"Comedy",
-          "payload":"DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_COMEDY"
+          "title":"訂閱關鍵字",
+          "payload":"PAYLOAD_FOR_SUBSCRIBED_KEY"
         },
         {
           "content_type":"text",
-          "title":"Drama",
-          "payload":"DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_DRAMA"
+          "title":"取消訂閱",
+          "payload":"PAYLOAD_FOR_CANCEL_SUBSCRIBE"
+        },
+        {
+          "content_type":"text",
+          "title":"關於UNews",
+          "payload":"PAYLOAD_FOR_ABOUT_UNEWS"
         }
       ]
     }

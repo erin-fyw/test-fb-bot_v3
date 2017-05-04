@@ -550,7 +550,9 @@ function sendTextMessage(recipientId, messageText) {
   };
 
   callSendAPI(messageData);
-  sendQuickReply(recipientId);
+  setTimeout(function() {
+    sendQuickReply(recipientId);
+  }, 2000)
 }
 
 /*

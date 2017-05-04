@@ -577,12 +577,12 @@ function aboutUNews(recipientId){
   var msg1 = 'UNews 係由 Zensis (https://www.zensis.com/) 開發及設計。如有任何意見，請電郵至 service@zensis.com 。';
   var msg2 = '如果你覺得好用，歡迎分享 UNews 俾親朋戚友\uD83D\uDE4C';
   var msg3 = 'https://t.me/UNewsMyBot';
-  sendTextMessageWithoutQuickReply(recipientID,msg1);
+  sendTextMessageWithoutQuickReply(recipientId,msg1);
   setTimeout(function() {
-    sendTextMessageWithoutQuickReply(recipientID,msg2);
+    sendTextMessageWithoutQuickReply(recipientId,msg2);
   }, 1000)
   setTimeout(function() {
-    sendTextMessage(recipientID,msg3);
+    sendTextMessage(recipientId,msg3);
   }, 2000)
 }
 

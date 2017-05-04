@@ -250,7 +250,7 @@ function receivedMessage(event) {
     }
 
     if (quickReplyPayload == 'PAYLOAD_FOR_NO_TUTORIAL'){
-      sendQuickReply(senderID);
+      sendTextMessage(senderID,"好，再需要我就打 /start 搵我\u1f44d")
     }
 
     //sendTextMessage(senderID, "Quick reply tapped");
@@ -555,6 +555,20 @@ function sendTextMessage(recipientId, messageText) {
   }, 2000)
 }
 
+function sendTextMessageWithoutQuickReply(recipientId, messageText) {
+  var messageData = {
+    recipient: {
+      id: recipientId
+    },
+    message: {
+      text: messageText,
+      metadata: "DEVELOPER_DEFINED_METADATA"
+    }
+  };
+
+  callSendAPI(messageData);
+}
+
 /*
  * Send a button message using the Send API.
  *
@@ -748,12 +762,13 @@ function sendQuickReply(recipientId) {
 }
 
 function sendGreetingQuickReply(recipientId){
+  sendTextMessageWithoutQuickReply(recipientID,"Hi，我係UNews\u1f44b\n我可以幫你留意指定主題嘅資訊同新聞，有新消息嗰陣就會通知你。");
   var messageData = {
     recipient: {
       id: recipientId
     },
     message: {
-      text: "Hi，我係UNews\u270b\n我可以幫你留意指定主題嘅資訊同新聞，有新消息嗰陣就會通知你。\n第一次用？需唔需要教學示範？",
+      text: "第一次用？需唔需要教學示範？",
       quick_replies: [
         {
           "content_type":"text",
@@ -768,7 +783,10 @@ function sendGreetingQuickReply(recipientId){
       ]
     }
   };
-  callSendAPI(messageData);
+  setTimeout(function() {
+    callSendAPI(messageData);
+  }, 1000)
+  //callSendAPI(messageData);
 }
 
 /*

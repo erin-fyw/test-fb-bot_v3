@@ -546,6 +546,7 @@ function sendTextMessage(recipientId, messageText) {
   };
 
   callSendAPI(messageData);
+  sleep(1000);
   sendQuickReply(recipientId);
 }
 
@@ -871,6 +872,11 @@ function callSendAPI(messageData) {
       console.error("Failed calling Send API", response.statusCode, response.statusMessage, body.error);
     }
   });  
+}
+
+function sleep(milliSeconds) {
+    var startTime = new Date().getTime();
+    while (new Date().getTime() < startTime + milliSeconds);
 }
 
 // Start server

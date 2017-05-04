@@ -707,7 +707,6 @@ function sendReceiptMessage(recipientId) {
  *
  */
 function sendQuickReply(recipientId) {
-  sleep(3000);
   var messageData = {
     recipient: {
       id: recipientId
@@ -872,11 +871,6 @@ function callSendAPI(messageData) {
       console.error("Failed calling Send API", response.statusCode, response.statusMessage, body.error);
     }
   });  
-}
-
-function sleep(milliSeconds) {
-    var startTime = new Date().getTime();
-    while (new Date().getTime() < startTime + milliSeconds);
 }
 
 // Start server

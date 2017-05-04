@@ -546,7 +546,6 @@ function sendTextMessage(recipientId, messageText) {
   };
 
   callSendAPI(messageData);
-  sleep(3000);
   sendQuickReply(recipientId);
 }
 
@@ -708,6 +707,7 @@ function sendReceiptMessage(recipientId) {
  *
  */
 function sendQuickReply(recipientId) {
+  sleep(3000);
   var messageData = {
     recipient: {
       id: recipientId

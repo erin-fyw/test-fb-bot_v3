@@ -762,7 +762,8 @@ function sendQuickReply(recipientId) {
 }
 
 function sendGreetingQuickReply(recipientId){
-  var msg1 = 'Hi，我係UNews\u1F44B';
+  var emoji1 = '\u1f44b';
+  var msg1 = 'Hi，我係UNews'+emoji1;
   var msg2 = '我可以幫你留意指定主題嘅資訊同新聞，有新消息嗰陣就會通知你。';
   sendTextMessageWithoutQuickReply(recipientId, msg1);
   setTimeout(function() {
@@ -790,7 +791,7 @@ function sendGreetingQuickReply(recipientId){
   };
   setTimeout(function() {
     callSendAPI(messageData);
-  }, 1000)
+  }, 2000)
   //callSendAPI(messageData);
 }
 

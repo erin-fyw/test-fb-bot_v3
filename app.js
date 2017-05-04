@@ -361,8 +361,8 @@ function receivedPostback(event) {
     
   if (payload == 'USER_DEFINED_PAYLOAD'){
     // get started
-    response_text = 'Hi，我係UNews\u270b\n我可以幫你留意指定主題嘅資訊同新聞，有新消息嗰陣就會通知你。';
-    sendTextMessage(senderID,response_text_1);
+    //response_text = 'Hi，我係UNews\u270b\n我可以幫你留意指定主題嘅資訊同新聞，有新消息嗰陣就會通知你。';
+    //sendTextMessage(senderID,response_text_1);
     sendGreetingQuickReply(senderID);
   }
 
@@ -733,7 +733,7 @@ function sendGreetingQuickReply(recipientId){
       id: recipientId
     },
     message: {
-      text: "第一次用？需唔需要教學示範？",
+      text: "Hi，我係UNews\u270b\n我可以幫你留意指定主題嘅資訊同新聞，有新消息嗰陣就會通知你。\n第一次用？需唔需要教學示範？",
       quick_replies: [
         {
           "content_type":"text",

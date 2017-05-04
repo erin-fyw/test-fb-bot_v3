@@ -360,7 +360,11 @@ function receivedPostback(event) {
   var payload = event.postback.payload;
     
   if (payload == 'USER_DEFINED_PAYLOAD'){
-    response_text = 'Hi，我係UNews\u270b\n我可以幫你留意指定主題嘅資訊同新聞，有新消息嗰陣就會通知你。';
+    // get started
+    response_text_1 = 'Hi，我係UNews\u270b';
+    response_text_2 = '我可以幫你留意指定主題嘅資訊同新聞，有新消息嗰陣就會通知你。';
+    sendTextMessage(senderID,response_text_1);
+    sendTextMessage(senderID,response_text_2);
     sendGreetingQuickReply(senderID);
   }
 
@@ -369,7 +373,7 @@ function receivedPostback(event) {
 
   // When a postback is called, we'll send a message back to the sender to 
   // let them know it was successful
-  sendTextMessage(senderID, response_text);
+  //sendTextMessage(senderID, response_text);
 }
 
 /*

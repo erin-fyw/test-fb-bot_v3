@@ -314,6 +314,10 @@ function receivedMessage(event) {
       case 'account linking':
         sendAccountLinking(senderID);
         break;
+        
+      case '/start':
+        sendGreetingQuickReply(senderID);
+        break;
 
       default:
         sendTextMessage(senderID,'已訂閱 '+messageText);

@@ -252,6 +252,10 @@ function receivedMessage(event) {
     if (quickReplyPayload == 'PAYLOAD_FOR_NO_TUTORIAL'){
       sendTextMessage(senderID,"好，再需要我就打 /start 搵我\uD83D\uDC4D")
     }
+    
+    if (quickReplyPayload == 'PAYLOAD_FOR_ABOUT_UNEWS'){
+      aboutUNews(senderID);
+    }
 
     //sendTextMessage(senderID, "Quick reply tapped");
     return;
@@ -567,6 +571,19 @@ function sendTextMessageWithoutQuickReply(recipientId, messageText) {
   };
 
   callSendAPI(messageData);
+}
+
+function aboutUNews(recipientId){
+  var msg1 = 'UNews 係由 Zensis (https://www.zensis.com/) 開發及設計。如有任何意見，請電郵至 service@zensis.com 。';
+  var msg2 = '如果你覺得好用，歡迎分享 UNews 俾親朋戚友\uD83D\uDE4C';
+  var msg3 = 'https://t.me/UNewsMyBot';
+  sendTextMessageWithoutQuickReply(recipientID,msg1);
+  setTimeout(function() {
+    sendTextMessageWithoutQuickReply(recipientID,msg2);
+  }, 1000)
+  setTimeout(function() {
+    sendTextMessage(recipientID,msg3);
+  }, 2000)
 }
 
 /*

@@ -711,7 +711,7 @@ function sendQuickReply(recipientId) {
       id: recipientId
     },
     message: {
-      text: "What's your favorite movie genre?",
+      text: "你可使用 UNews Bot 訂閱特定主題的網上新聞。請選擇以下服務：",
       quick_replies: [
         {
           "content_type":"text",

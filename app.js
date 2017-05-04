@@ -250,7 +250,7 @@ function receivedMessage(event) {
     }
 
     if (quickReplyPayload == 'PAYLOAD_FOR_NO_TUTORIAL'){
-      sendTextMessage(senderID,"好，再需要我就打 /start 搵我\u1F44D")
+      sendTextMessage(senderID,"好，再需要我就打 /start 搵我"+"\u1F44D")
     }
 
     //sendTextMessage(senderID, "Quick reply tapped");
@@ -762,7 +762,7 @@ function sendQuickReply(recipientId) {
 }
 
 function sendGreetingQuickReply(recipientId){
-  var emoji1 = '\u1f44b';
+  var emoji1 = "\u1f44b";
   var msg1 = 'Hi，我係UNews'+emoji1;
   var msg2 = '我可以幫你留意指定主題嘅資訊同新聞，有新消息嗰陣就會通知你。';
   sendTextMessageWithoutQuickReply(recipientId, msg1);

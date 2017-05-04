@@ -762,7 +762,8 @@ function sendQuickReply(recipientId) {
 }
 
 function sendGreetingQuickReply(recipientId){
-  sendTextMessageWithoutQuickReply(recipientID,"Hi，我係UNews\u1f44b\n我可以幫你留意指定主題嘅資訊同新聞，有新消息嗰陣就會通知你。");
+  var msg = 'Hi，我係UNews\u1f44b\n我可以幫你留意指定主題嘅資訊同新聞，有新消息嗰陣就會通知你。';
+  sendTextMessageWithoutQuickReply(recipientId, msg);
   var messageData = {
     recipient: {
       id: recipientId

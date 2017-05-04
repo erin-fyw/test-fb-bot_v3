@@ -247,7 +247,6 @@ function receivedMessage(event) {
     
     if (quickReplyPayload == 'PAYLOAD_FOR_NEED_TUTORIAL'){
       sendTextMessage(senderID,"好簡單，輸入關鍵字就可以訂閱指定新聞。")
-      sendQuickReply(senderID);
     }
 
     if (quickReplyPayload == 'PAYLOAD_FOR_NO_TUTORIAL'){

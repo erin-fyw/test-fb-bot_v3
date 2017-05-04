@@ -361,6 +361,7 @@ function receivedPostback(event) {
     
   if (payload == 'USER_DEFINED_PAYLOAD'){
     response_text = 'Hi，我係UNews\u270b\n我可以幫你留意指定主題嘅資訊同新聞，有新消息嗰陣就會通知你。';
+    sendGreetingQuickReply(senderID);
   }
 
   console.log("Received postback for user %d and page %d with payload '%s' " + 
@@ -721,6 +722,30 @@ function sendQuickReply(recipientId) {
     }
   };
 
+  callSendAPI(messageData);
+}
+
+function sendGreetingQuickReply(recipientId){
+  var messageData = {
+    recipient: {
+      id: recipientId
+    },
+    message: {
+      text: "第一次用？需唔需要教學示範？",
+      quick_replies: [
+        {
+          "content_type":"text",
+          "title":"好啊",
+          "payload":"PAYLOAD_FOR_NEED_TUTORIAL"
+        },
+        {
+          "content_type":"text",
+          "title":"唔洗啦",
+          "payload":"PAYLOAD_FOR_NO_TUTORIAL"
+        }
+      ]
+    }
+  };
   callSendAPI(messageData);
 }
 

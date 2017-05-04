@@ -546,7 +546,7 @@ function sendTextMessage(recipientId, messageText) {
   };
 
   callSendAPI(messageData);
-  sleep(1000);
+  sleep(3000);
   sendQuickReply(recipientId);
 }
 

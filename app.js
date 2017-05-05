@@ -1,3 +1,13 @@
+/*
+ * Copyright 2016-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ */
+
+/* jshint node: true, devel: true */
 'use strict';
 
 const 
@@ -61,6 +71,7 @@ app.get('/webhook', function(req, res) {
     res.sendStatus(403);          
   }  
 });
+
 
 /*
  * All callbacks for Messenger are POST-ed. They will be sent to the same
@@ -233,7 +244,7 @@ function receivedMessage(event) {
     var quickReplyPayload = quickReply.payload;
     console.log("Quick reply for message %s with payload %s",
       messageId, quickReplyPayload);
-
+    
     if (quickReplyPayload == 'PAYLOAD_FOR_NEED_TUTORIAL'){
       sendTextMessage(senderID,"好簡單，輸入關鍵字就可以訂閱指定新聞。")
     }
@@ -241,7 +252,7 @@ function receivedMessage(event) {
     if (quickReplyPayload == 'PAYLOAD_FOR_NO_TUTORIAL'){
       sendTextMessage(senderID,"好，再需要我就打 /start 搵我\uD83D\uDC4D")
     }
-
+    
     if (quickReplyPayload == 'PAYLOAD_FOR_ABOUT_UNEWS'){
       aboutUNews(senderID);
     }
@@ -256,17 +267,70 @@ function receivedMessage(event) {
     // keywords and send back the corresponding example. Otherwise, just echo
     // the text we received.
     switch (messageText) {
+      case 'image':
+        sendImageMessage(senderID);
+        break;
+
+      case 'gif':
+        sendGifMessage(senderID);
+        break;
+
+      case 'audio':
+        sendAudioMessage(senderID);
+        break;
+
+      case 'video':
+        sendVideoMessage(senderID);
+        break;
+
+      case 'file':
+        sendFileMessage(senderID);
+        break;
+
+      case 'button':
+        sendButtonMessage(senderID);
+        break;
+
+      case 'generic':
+        sendGenericMessage(senderID);
+        break;
+
+      case 'receipt':
+        sendReceiptMessage(senderID);
+        break;
+
+      case 'quick reply':
+        sendQuickReply(senderID);
+        break;        
+
+      case 'read receipt':
+        sendReadReceipt(senderID);
+        break;        
+
+      case 'typing on':
+        sendTypingOn(senderID);
+        break;        
+
+      case 'typing off':
+        sendTypingOff(senderID);
+        break;        
+
+      case 'account linking':
+        sendAccountLinking(senderID);
+        break;
+        
       case '/start':
         sendGreetingQuickReply(senderID);
         break;
 
       default:
-        sendTextMessage(senderID, '已訂閱 '+messageText+'。');
+        sendTextMessage(senderID,'已訂閱 '+messageText+'。');
     }
   } else if (messageAttachments) {
     sendTextMessage(senderID, "Message with attachment received");
   }
 }
+
 
 /*
  * Delivery Confirmation Event
@@ -310,7 +374,7 @@ function receivedPostback(event) {
   // The 'payload' param is a developer-defined field which is set in a postback 
   // button for Structured Messages. 
   var payload = event.postback.payload;
-
+    
   if (payload == 'USER_DEFINED_PAYLOAD'){
     // get started
     //response_text = 'Hi，我係UNews\u270b\n我可以幫你留意指定主題嘅資訊同新聞，有新消息嗰陣就會通知你。';
@@ -365,6 +429,116 @@ function receivedAccountLink(event) {
 }
 
 /*
+ * Send an image using the Send API.
+ *
+ */
+function sendImageMessage(recipientId) {
+  var messageData = {
+    recipient: {
+      id: recipientId
+    },
+    message: {
+      attachment: {
+        type: "image",
+        payload: {
+          url: SERVER_URL + "/assets/rift.png"
+        }
+      }
+    }
+  };
+
+  callSendAPI(messageData);
+}
+
+/*
+ * Send a Gif using the Send API.
+ *
+ */
+function sendGifMessage(recipientId) {
+  var messageData = {
+    recipient: {
+      id: recipientId
+    },
+    message: {
+      attachment: {
+        type: "image",
+        payload: {
+          url: SERVER_URL + "/assets/instagram_logo.gif"
+        }
+      }
+    }
+  };
+
+  callSendAPI(messageData);
+}
+
+/*
+ * Send audio using the Send API.
+ *
+ */
+function sendAudioMessage(recipientId) {
+  var messageData = {
+    recipient: {
+      id: recipientId
+    },
+    message: {
+      attachment: {
+        type: "audio",
+        payload: {
+          url: SERVER_URL + "/assets/sample.mp3"
+        }
+      }
+    }
+  };
+
+  callSendAPI(messageData);
+}
+
+/*
+ * Send a video using the Send API.
+ *
+ */
+function sendVideoMessage(recipientId) {
+  var messageData = {
+    recipient: {
+      id: recipientId
+    },
+    message: {
+      attachment: {
+        type: "video",
+        payload: {
+          url: SERVER_URL + "/assets/allofus480.mov"
+        }
+      }
+    }
+  };
+
+  callSendAPI(messageData);
+}
+
+/*
+ * Send a file using the Send API.
+ *
+ */
+function sendFileMessage(recipientId) {
+  var messageData = {
+    recipient: {
+      id: recipientId
+    },
+    message: {
+      attachment: {
+        type: "file",
+        payload: {
+          url: SERVER_URL + "/assets/test.txt"
+        }
+      }
+    }
+  };
+
+  callSendAPI(messageData);
+}
+
+/*
  * Send a text message using the Send API.
  *
  */
@@ -382,7 +556,7 @@ function sendTextMessage(recipientId, messageText) {
   callSendAPI(messageData);
   setTimeout(function() {
     sendQuickReply(recipientId);
-  }, 1000)
+  }, 2000)
 }
 
 function sendTextMessageWithoutQuickReply(recipientId, messageText) {
@@ -403,24 +577,166 @@ function aboutUNews(recipientId){
   var msg1 = 'UNews 係由 Zensis (https://www.zensis.com/) 開發及設計。如有任何意見，請電郵至 service@zensis.com 。';
   var msg2 = '如果你覺得好用，歡迎分享 UNews 俾親朋戚友\uD83D\uDE4C';
   var msg3 = 'https://t.me/UNewsMyBot';
-  sendTextMessageWithoutQuickReply(recipientID,msg1);
+  sendTextMessageWithoutQuickReply(recipientId,msg1);
   setTimeout(function() {
-    sendTextMessageWithoutQuickReply(recipientID,msg2);
+    sendTextMessageWithoutQuickReply(recipientId,msg2);
   }, 1000)
   setTimeout(function() {
-    sendTextMessage(recipientID,msg3);
+    sendTextMessage(recipientId,msg3);
   }, 2000)
 }
 
-function tutorialQuickReply(recipientId){
-  var msg1 = '好簡單，輸入關鍵字就可以訂閱指定新聞。';
-  var msg2 = '等我一路幫你訂，順便示範一下。';
-  var msg3 = '有冇追開明星同歌手？輸入名稱例如 周杰倫 或 BIGBANG 追蹤佢哋嘅最新消息！';
-  var msg4 = '留意開乜野產品？輸入產品名稱，例如 GoPro。';
-  var msg5 = '你屋企或公司喺邊區？我可以幫你留意輸入地區如 沙田 附近嘅消息。';
-  var msg6 - '要接收 優惠 資訊嗎？包括購物、機票等著數資訊。';
-  var msg7 = '示範完畢，有咩問題打 /start 搵我\uD83D\uDC4D';
+/*
+ * Send a button message using the Send API.
+ *
+ */
+function sendButtonMessage(recipientId) {
+  var messageData = {
+    recipient: {
+      id: recipientId
+    },
+    message: {
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "button",
+          text: "This is test text",
+          buttons:[{
+            type: "web_url",
+            url: "https://www.oculus.com/en-us/rift/",
+            title: "Open Web URL"
+          }, {
+            type: "postback",
+            title: "Trigger Postback",
+            payload: "DEVELOPER_DEFINED_PAYLOAD"
+          }, {
+            type: "phone_number",
+            title: "Call Phone Number",
+            payload: "+16505551234"
+          }]
+        }
+      }
+    }
+  };  
 
+  callSendAPI(messageData);
+}
+
+/*
+ * Send a Structured Message (Generic Message type) using the Send API.
+ *
+ */
+function sendGenericMessage(recipientId) {
+  var messageData = {
+    recipient: {
+      id: recipientId
+    },
+    message: {
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "generic",
+          elements: [{
+            title: "rift",
+            subtitle: "Next-generation virtual reality",
+            item_url: "https://www.oculus.com/en-us/rift/",               
+            image_url: SERVER_URL + "/assets/rift.png",
+            buttons: [{
+              type: "web_url",
+              url: "https://www.oculus.com/en-us/rift/",
+              title: "Open Web URL"
+            }, {
+              type: "postback",
+              title: "Call Postback",
+              payload: "Payload for first bubble",
+            }],
+          }, {
+            title: "touch",
+            subtitle: "Your Hands, Now in VR",
+            item_url: "https://www.oculus.com/en-us/touch/",               
+            image_url: SERVER_URL + "/assets/touch.png",
+            buttons: [{
+              type: "web_url",
+              url: "https://www.oculus.com/en-us/touch/",
+              title: "Open Web URL"
+            }, {
+              type: "postback",
+              title: "Call Postback",
+              payload: "Payload for second bubble",
+            }]
+          }]
+        }
+      }
+    }
+  };  
+
+  callSendAPI(messageData);
+}
+
+/*
+ * Send a receipt message using the Send API.
+ *
+ */
+function sendReceiptMessage(recipientId) {
+  // Generate a random receipt ID as the API requires a unique ID
+  var receiptId = "order" + Math.floor(Math.random()*1000);
+
+  var messageData = {
+    recipient: {
+      id: recipientId
+    },
+    message:{
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "receipt",
+          recipient_name: "Peter Chang",
+          order_number: receiptId,
+          currency: "USD",
+          payment_method: "Visa 1234",        
+          timestamp: "1428444852", 
+          elements: [{
+            title: "Oculus Rift",
+            subtitle: "Includes: headset, sensor, remote",
+            quantity: 1,
+            price: 599.00,
+            currency: "USD",
+            image_url: SERVER_URL + "/assets/riftsq.png"
+          }, {
+            title: "Samsung Gear VR",
+            subtitle: "Frost White",
+            quantity: 1,
+            price: 99.99,
+            currency: "USD",
+            image_url: SERVER_URL + "/assets/gearvrsq.png"
+          }],
+          address: {
+            street_1: "1 Hacker Way",
+            street_2: "",
+            city: "Menlo Park",
+            postal_code: "94025",
+            state: "CA",
+            country: "US"
+          },
+          summary: {
+            subtotal: 698.99,
+            shipping_cost: 20.00,
+            total_tax: 57.67,
+            total_cost: 626.66
+          },
+          adjustments: [{
+            name: "New Customer Discount",
+            amount: -50
+          }, {
+            name: "$100 Off Coupon",
+            amount: -100
+          }]
+        }
+      }
+    }
+  };
+
+  callSendAPI(messageData);
 }
 
 /*
@@ -468,7 +784,7 @@ function sendGreetingQuickReply(recipientId){
   sendTextMessageWithoutQuickReply(recipientId, msg1);
   setTimeout(function() {
     sendTextMessageWithoutQuickReply(recipientId, msg2);
-  }, 1000)   
+  }, 1000)  
   var messageData = {
     recipient: {
       id: recipientId
@@ -491,7 +807,7 @@ function sendGreetingQuickReply(recipientId){
   };
   setTimeout(function() {
     callSendAPI(messageData);
-  }, 2000)    
+  }, 2000)
   //callSendAPI(messageData);
 }
 
@@ -611,3 +927,4 @@ app.listen(app.get('port'), function() {
 });
 
 module.exports = app;
+

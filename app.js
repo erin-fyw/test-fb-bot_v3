@@ -24,6 +24,14 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.json({ verify: verifyRequestSignature }));
 app.use(express.static('public'));
 
+MongoClient.connect(url, function(err,db){
+  if (err){
+    console.log('Uanble to connect the mongoDB server, Error: ',ERR);
+  }else{
+    console.log('Connected to MongoDB server');
+  }
+});
+
 /*
  * Be sure to setup your config values before running this code. You can 
  * set them using environment variables or modifying the config file in /config.
